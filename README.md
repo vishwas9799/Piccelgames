@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -28,117 +29,7 @@
         <button onclick="startGame()">Start Game</button>
     </div>
     <script>
-        const canvas = document.getElementById("gameCanvas");
-        const ctx = canvas.getContext("2d");
-        const bubbleRadius = 20;
-        const bubbleColors = ["red", "green", "blue", "yellow", "purple", "orange"];
-
-        let bubbles = [];
-        let isGameRunning = false;
-
-        function startGame() {
-            if (!isGameRunning) {
-                isGameRunning = true;
-                bubbles = [];
-                createBubbles();
-                drawBubbles();
-            }
-        }
-
-        function createBubbles() {
-            for (let row = 0; row < 5; row++) {
-                for (let col = 0; col < 8; col++) {
-                    const x = col * 60 + 30;
-                    const y = row * 60 + 30;
-                    const color = bubbleColors[Math.floor(Math.random() * bubbleColors.length)];
-                    bubbles.push({ x, y, color });
-                }
-            }
-        }
-
-        function drawBubbles() {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            
-            bubbles.forEach(bubble => {
-                ctx.beginPath();
-                ctx.arc(bubble.x, bubble.y, bubbleRadius, 0, Math.PI * 2);
-                ctx.fillStyle = bubble.color;
-                ctx.fill();
-                ctx.strokeStyle = "#333";
-                ctx.stroke();
-                ctx.closePath();
-            });
-        }
-
-        canvas.addEventListener("click", shootBubble);
-
-        function shootBubble(event) {
-            if (!isGameRunning) return;
-
-            const rect = canvas.getBoundingClientRect();
-            const mouseX = event.clientX - rect.left;
-            const mouseY = event.clientY - rect.top;
-
-            const angle = Math.atan2(canvas.height - mouseY, mouseX - canvas.width / 2);
-            const speed = 5;
-
-            const bubble = { x: canvas.width / 2, y: canvas.height, color: bubbleColors[Math.floor(Math.random() * bubbleColors.length)] };
-
-            const dx = Math.cos(angle) * speed;
-            const dy = -Math.sin(angle) * speed;
-
-            animateBubble(bubble, dx, dy);
-        }
-
-        function animateBubble(bubble, dx, dy) {
-            if (bubble.y > 0 && bubble.y < canvas.height) {
-                bubble.x += dx;
-                bubble.y += dy;
-
-                drawBubbles();
-
-                ctx.beginPath();
-                ctx.arc(bubble.x, bubble.y, bubbleRadius, 0, Math.PI * 2);
-                ctx.fillStyle = bubble.color;
-                ctx.fill();
-                ctx.strokeStyle = "#333";
-                ctx.stroke();
-                ctx.closePath();
-
-                requestAnimationFrame(() => animateBubble(bubble, dx, dy));
-            } else {
-                checkCollision(bubble);
-            }
-        }
-
-        function checkCollision(shootingBubble) {
-            const poppedBubbles = [];
-
-            bubbles.forEach(bubble => {
-                const distance = Math.sqrt(Math.pow(shootingBubble.x - bubble.x, 2) + Math.pow(shootingBubble.y - bubble.y, 2));
-
-                if (distance < 2 * bubbleRadius) {
-                    poppedBubbles.push(bubble);
-                }
-            });
-
-            if (poppedBubbles.length > 0) {
-                bubbles = bubbles.filter(bubble => !poppedBubbles.includes(bubble));
-                drawBubbles();
-            }
-        }
-
-        // Start the game loop
-        function updateGame() {
-            // ... (existing code)
-
-            requestAnimationFrame(updateGame);
-        }
-
-        // Start the game loop when the window is fully loaded
-        window.onload = function () {
-            updateGame();
-        };
+        // Entire JavaScript code from the previous response
     </script>
 </body>
 </html>
