@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -86,10 +87,14 @@
                 }
             }
 
-            // Handle player input for shooting
+            // Handle player input for shooting and moving the shooter
             document.addEventListener('keydown', (event) => {
                 if (event.key === ' ') {
                     shootBubble();
+                } else if (event.key === 'ArrowLeft' && shooter.x > bubbleRadius) {
+                    shooter.x -= 10;
+                } else if (event.key === 'ArrowRight' && shooter.x < canvas.width - bubbleRadius) {
+                    shooter.x += 10;
                 }
             });
 
